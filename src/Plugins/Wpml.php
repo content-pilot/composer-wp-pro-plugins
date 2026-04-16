@@ -2,10 +2,10 @@
 /**
  * WPML Plugin.
  *
- * @package Junaidbhura\Composer\WPProPlugins\Plugins
+ * @package ContentPilot\Composer\WPProPlugins\Plugins
  */
 
-namespace Junaidbhura\Composer\WPProPlugins\Plugins;
+namespace ContentPilot\Composer\WPProPlugins\Plugins;
 
 use UnexpectedValueException;
 

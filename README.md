@@ -1,5 +1,7 @@
 # Composer Installer for Pro WordPress Plugins.
 
+> **This is a maintained fork of [junaidbhura/composer-wp-pro-plugins](https://github.com/junaidbhura/composer-wp-pro-plugins)**, which was archived by its original author on 2025-08-02. All credit for the original design and implementation belongs to [Junaid Bhura](https://github.com/junaidbhura); this fork exists to continue maintenance for Content Pilot's projects. The code remains MIT-licensed.
+
 A Composer plugin that makes it easy to install commercial WordPress plugins.
 
 Sensitive credentials (license keys, tokens) are read from environment variables or a `.env` file.

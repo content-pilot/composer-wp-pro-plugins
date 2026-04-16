@@ -2,10 +2,10 @@
 /**
  * Composer Installer for Pro WordPress Plugins.
  *
- * @package Junaidbhura\Composer\WPProPlugins
+ * @package ContentPilot\Composer\WPProPlugins
  */
 
-namespace Junaidbhura\Composer\WPProPlugins;
+namespace ContentPilot\Composer\WPProPlugins;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
@@ -238,36 +238,50 @@ class Installer implements PluginInterface, EventSubscriberInterface {
 	protected function getDownloadUrl( PackageInterface $package ) {
 		$plugin       = null;
 		$package_name = $package->getName();
-		$plugin_name  = str_replace( 'junaidbhura/', '', $package_name );
 
-		switch ( $package_name ) {
-			case 'junaidbhura/acf-extended-pro':
+		// Strip a recognised vendor prefix so dispatch only depends on the slug.
+		// Both `junaidbhura/` (historical) and `content-pilot/` (fork) are accepted.
+		$supported_prefixes = array( 'junaidbhura/', 'content-pilot/' );
+		$plugin_name        = null;
+		foreach ( $supported_prefixes as $prefix ) {
+			if ( 0 === strpos( $package_name, $prefix ) ) {
+				$plugin_name = substr( $package_name, strlen( $prefix ) );
+				break;
+			}
+		}
+
+		if ( null === $plugin_name ) {
+			return null;
+		}
+
+		switch ( $plugin_name ) {
+			case 'acf-extended-pro':
 				$plugin = new Plugins\AcfExtendedPro( $package->getPrettyVersion(), $plugin_name );
 				break;
 
-			case 'junaidbhura/advanced-custom-fields-pro':
+			case 'advanced-custom-fields-pro':
 				$plugin = new Plugins\AcfPro( $package->getPrettyVersion(), $plugin_name );
 				break;
 
-			case 'junaidbhura/polylang-pro':
+			case 'polylang-pro':
 				$plugin = new Plugins\PolylangPro( $package->getPrettyVersion(), $plugin_name );
 				break;
 
-			case 'junaidbhura/wp-all-import-pro':
-			case 'junaidbhura/wp-all-export-pro':
+			case 'wp-all-import-pro':
+			case 'wp-all-export-pro':
 				$plugin = new Plugins\WpAiPro( $package->getPrettyVersion(), $plugin_name );
 				break;
 
 			default:
-				if ( 0 === strpos( $package_name, 'junaidbhura/gravityforms' ) ) {
+				if ( 0 === strpos( $plugin_name, 'gravityforms' ) ) {
 					$plugin = new Plugins\GravityForms( $package->getPrettyVersion(), $plugin_name );
-				} elseif ( 0 === strpos( $package_name, 'junaidbhura/ninja-forms-' ) ) {
+				} elseif ( 0 === strpos( $plugin_name, 'ninja-forms-' ) ) {
 					$plugin = new Plugins\NinjaForms( $package->getPrettyVersion(), $plugin_name );
-				} elseif ( 0 === strpos( $package_name, 'junaidbhura/publishpress-' ) ) {
+				} elseif ( 0 === strpos( $plugin_name, 'publishpress-' ) ) {
 					$plugin = new Plugins\PublishPressPro( $package->getPrettyVersion(), $plugin_name );
-				} elseif ( 0 === strpos( $package_name, 'junaidbhura/wpai-' ) || 0 === strpos( $package_name, 'junaidbhura/wpae-' ) ) {
+				} elseif ( 0 === strpos( $plugin_name, 'wpai-' ) || 0 === strpos( $plugin_name, 'wpae-' ) ) {
 					$plugin = new Plugins\WpAiPro( $package->getPrettyVersion(), $plugin_name );
-				} elseif ( 0 === strpos( $package_name, 'junaidbhura/wpml-' ) ) {
+				} elseif ( 0 === strpos( $plugin_name, 'wpml-' ) ) {
 					$plugin = new Plugins\Wpml( $package->getPrettyVersion(), $plugin_name );
 				}
 		}

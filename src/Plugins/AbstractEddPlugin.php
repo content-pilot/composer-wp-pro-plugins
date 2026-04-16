@@ -2,10 +2,10 @@
 /**
  * Abstract Easy Digital Downloads (EDD) Plugin.
  *
- * @package Junaidbhura\Composer\WPProPlugins\Plugins
+ * @package ContentPilot\Composer\WPProPlugins\Plugins
  */
 
-namespace Junaidbhura\Composer\WPProPlugins\Plugins;
+namespace ContentPilot\Composer\WPProPlugins\Plugins;
 
 use Composer\Semver\Semver;
 use UnexpectedValueException;
@@ -25,14 +25,14 @@ abstract class AbstractEddPlugin extends AbstractPlugin {
 		if ( empty( $response['download_link'] ) || ! is_string( $response['download_link'] ) ) {
 			throw new UnexpectedValueException( sprintf(
 				'Expected a valid download URL for package %s',
-				'junaidbhura/' . $this->slug
+				$this->slug
 			) );
 		}
 
 		if ( empty( $response['new_version'] ) || ! is_scalar( $response['new_version'] ) ) {
 			throw new UnexpectedValueException( sprintf(
 				'Expected a valid download version number for package %s',
-				'junaidbhura/' . $this->slug
+				$this->slug
 			) );
 		}
 
@@ -41,7 +41,7 @@ abstract class AbstractEddPlugin extends AbstractPlugin {
 				'Expected download version (%s) to match installed version (%s) of package %s',
 				$response['new_version'],
 				$this->version,
-				'junaidbhura/' . $this->slug
+				$this->slug
 			) );
 		}
 

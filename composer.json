@@ -10,16 +10,22 @@
   "authors": [
     {
       "name": "Junaid Bhura",
-      "email": "info@junaidbhura.com"
+      "email": "info@junaidbhura.com",
+      "role": "Original author"
+    },
+    {
+      "name": "Content Pilot",
+      "homepage": "https://www.contentpilot.com",
+      "role": "Fork maintainer"
     }
   ],
   "autoload": {
     "psr-4": {
-      "Junaidbhura\\Composer\\WPProPlugins\\": "src/"
+      "ContentPilot\\Composer\\WPProPlugins\\": "src/"
     }
   },
   "extra": {
-    "class": "Junaidbhura\\Composer\\WPProPlugins\\Installer",
+    "class": "ContentPilot\\Composer\\WPProPlugins\\Installer",
     "plugin-modifies-downloads": true
   }
 }
